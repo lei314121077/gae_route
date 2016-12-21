@@ -1,30 +1,20 @@
-# Copyright 2016 Google Inc.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 import webapp2
+from google.appengine.ext.webapp.util import run_wsgi_app
 
+from common_setting import  IS_DEBUG
+from route import route
+from common.common_utils import init_log
+from contacts import test
 
-class MainPage(webapp2.RequestHandler):
-    def get(self):
-        self.response.headers['Content-Type'] = 'text/plain'
-        self.response.write('Hello, World!!!!')
+# from google.appengine.ext import webapp
 
+app = webapp2.WSGIApplication(routes=route.handlers, debug=IS_DEBUG)
 
-app = webapp2.WSGIApplication([
-    ('/', MainPage),
-], debug=True)
+if __name__ == '__main__':
 
+    init_log()
+    run_wsgi_app(app)
 
-# def main():
-#     run_wsgi_app(app)
